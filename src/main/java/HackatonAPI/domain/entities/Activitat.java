@@ -1,8 +1,10 @@
 package HackatonAPI.domain.entities;
 
+import HackatonAPI.domain.dtos.ActivitatDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,8 +29,16 @@ public class Activitat {
     private int capacitat_maxima;
 
     @ManyToMany
-    @JoinTable(name = "usuaris_activitats",
-    joinColumns = @JoinColumn(name = "activitat_id", referencedColumnName = "id"))
-    private Set<Usuari> usuari_id;
+    @JoinTable(
+            name = "usuaris_activitats",
+            joinColumns = @JoinColumn(name = "usuari_id"),
+            inverseJoinColumns = @JoinColumn(name = "activitat_id"))
+    private Set<Usuari> usuarisInscrits = new HashSet<>();
+
+    public Activitat(ActivitatDTO dto) {
+        this.nom = dto.getNom();
+        this.descripcio = dto.getDescripcio();
+        this.capacitat_maxima = dto.getCapacacitat_maxima();
+    }
 
 }

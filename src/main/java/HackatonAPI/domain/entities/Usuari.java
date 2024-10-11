@@ -1,8 +1,10 @@
 package HackatonAPI.domain.entities;
 
+import HackatonAPI.domain.dtos.UsuariDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,8 +22,12 @@ public class Usuari {
     @Column(name = "nom", nullable = false)
     private String nom;
 
-    @ManyToMany
-    private Set<Activitat> activitat_id;
+    @ManyToMany(mappedBy = "usuarisInscrits")
+    private Set<Activitat> activitats = new HashSet<>();
+
+    public Usuari(UsuariDTO dto) {
+        this.nom = dto.getNom();
+    }
 
 
 }

@@ -1,12 +1,16 @@
 package HackatonAPI.domain.dtos;
 
+import HackatonAPI.domain.entities.Usuari;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuariDTO {
 
-    private String name;
+    private String nom;
+
+    public UsuariDTO(Usuari usuari) {
+        this.nom = usuari.getNom();
+    }
 }
